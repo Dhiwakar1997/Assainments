@@ -1,0 +1,4 @@
+Product Name  = iphone
+Available Count = 4
+Price  = 70000.00
+Quality  = A1

@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+
+int main(){
+    int pid;
+    printf("I'am the original process with PID %d and PPID %d.\n",getpid(),getppid());
+
+    pid = fork();
+    if(pid!=0)
+    {
+        printf("I'am the parent with PID %d and PPID %d.\n",getppid(),getppid());
+        printf("My child's PID is %d\n",pid);
+    }
+    else{
+        sleep(4);
+        printf("I'm the child with PID %d and PPID %d.\n",getppid(),getppid());
+    }
+printf("PID %d terminated\n",getppid());
+    return 0;
+}

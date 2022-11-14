@@ -1,5 +1,4 @@
 #include<iostream>
-
 using namespace std;
 
 int main()
@@ -8,13 +7,13 @@ int main()
     float avgWaitingTime,avgTurnAroundTime,waitingTime=0,turnAroundTime=0;
     cout<< "Enter the number of Processes: ";
     cin>> processCount;
-    int burstTime[processCount], arraivalTime[processCount]
+    int burstTime[processCount], arrivalTime[processCount]
     ,completionTime[processCount], processOrder[processCount];
     
-    
     for(int i=0;i<processCount;i++){
+        cout<< "Enter process "<<i<<" burst time: ";
         cin>>burstTime[i];
-        arraivalTime[i]=0;
+        arrivalTime[i]=0;
         processOrder[i]=i;
     }
     
@@ -31,18 +30,18 @@ int main()
             burstTime[j] = burstTime[i];
             burstTime[i]=temp; }} }
     
-    for(int i=0;i<processCount;i++){
-        cout<<"\nBT-"<<burstTime[i];
-        cout<<" PO-"<<processOrder[i];
-    }
+    // for(int i=0;i<processCount;i++){
+    //     cout<<"\nBT-"<<burstTime[i];
+    //     cout<<" PO-"<<processOrder[i];
+    // }
     
     for(int i=0;i<processCount;i++)
     {
         currentTime += burstTime[i];
         completionTime[i]=currentTime;
-        turnAroundTime+=completionTime[i]-arraivalTime[i];
+        turnAroundTime+=completionTime[i]-arrivalTime[i];
         if(i==0)continue;
-        waitingTime+=completionTime[i-1]-arraivalTime[i-1];
+        waitingTime+=completionTime[i-1]-arrivalTime[i-1];
     }    
     
     avgWaitingTime=waitingTime/processCount;
@@ -50,8 +49,7 @@ int main()
     cout<<"\nThe Total Waiting time is : "<<waitingTime;
     cout<<"\nThe average Waiting time is : "<<avgWaitingTime;
     cout<<"\nThe Total Turn Around time is : "<<turnAroundTime;
-    cout<<"\nThe average Turn Around time is : "<<avgTurnAroundTime;
-    
+    cout<<"\nThe average Turn Around time is : "<<avgTurnAroundTime<<'\n';
     
     return 0;
 }

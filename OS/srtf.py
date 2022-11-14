@@ -1,4 +1,4 @@
-processList = ['PI', 'P2', 'P3', 'P4']
+processList = ['P1', 'P2', 'P3', 'P4']
 burstTime=[8,4,9,5]
 
 arrivalTime = [2,1,0,3]
@@ -7,7 +7,7 @@ liveBurstTime={}
 waitingTimeResult = {}
 turnAroundTimeDict ={}
 completedList =[]
-waitingTime=0
+totalWaitingTime=0
 
 
 while (True):
@@ -15,10 +15,11 @@ while (True):
     completedProcess = ""
     for i,at in enumerate(arrivalTime):
         if at<=runningTime and processList[i] not in liveBurstTime.keys () \
-        and processList[i] not in completedList: liveBurstTime[processList[i]]=burstTime[i]
-        waitingTimeResult[processList[i]]= 0
-        turnAroundTimeDict [processList[i]] = 0
-    min = float (' inf')
+        and processList[i] not in completedList: 
+            liveBurstTime[processList[i]]=burstTime[i]
+            waitingTimeResult[processList[i]]= 0
+            turnAroundTimeDict [processList[i]] = 0
+    min = float ('inf')
     minKey=''
     for key,val in liveBurstTime.items () :
         if val<=0:
@@ -40,14 +41,26 @@ while (True):
     if liveBurstTime=={}:
         break 
 
-print(waitingTimeResult)
-waitingTime=0
-turnAroundTime=0
+totalWaitingTime=0
+totalTurnAroundTime=0
 for i in processList:
-    waitingTime+=waitingTimeResult[i] 
-    turnAroundTime+=turnAroundTimeDict[i]
-print (turnAroundTimeDict)
-print(f'Total Waiting Time : (waitingTime]')
-print (f'Average Waiting Time : {waitingTime/len (processList)}')
-print (f'Total Turn Around Time : {turnAroundTime}')
-print (f'Average Turn Around Time : {turnAroundTime/len(processList)}')
+    totalWaitingTime+=waitingTimeResult[i] 
+    totalTurnAroundTime+=turnAroundTimeDict[i]
+
+avgWaitingTime = totalWaitingTime/len(burstTime)
+avgTurnAroundTime = totalTurnAroundTime/len(burstTime)
+
+
+for process, wt in waitingTimeResult.items():
+    print(f'The process {process} waiting time is "{wt}" ')
+    
+print('\n')
+print(f'Total waiting time: {totalWaitingTime}')
+print(f'Average waiting time: {round(avgWaitingTime, 2)}')
+print('\n')
+
+for process, tat in turnAroundTimeDict.items():
+    print(f'The process {process} waiting time is "{tat}" ')
+print('\n')
+print(f'Total turnaround time: {totalTurnAroundTime}')
+print(f'Average turnaround time: {round(avgTurnAroundTime, 2)}')

@@ -32,10 +32,17 @@ for key,wt in waitingTime.items():
 avgWaitingTime = totalWaitingTime/len(burstTime)
 avgTurnAroundTime = totalTurnAroundTime/len(burstTime)
 
-print(f'Total waiting time: {totalWaitingTime}')
-print(f'Average waiting time: {avgWaitingTime}')
-print(waitingTime)
 
-print(f'Total turn around time: {totalTurnAroundTime}')
-print(f'Average turn around time: {avgTurnAroundTime}')
-print(turnAroundTime)
+for process, wt in waitingTime.items():
+    print(f'The process {process} waiting time is "{wt}" ')
+    
+print('\n')
+print(f'Total waiting time: {totalWaitingTime}')
+print(f'Average waiting time: {round(avgWaitingTime, 2)}')
+print('\n')
+
+for process, tat in turnAroundTime.items():
+    print(f'The process {process} waiting time is "{tat}" ')
+print('\n')
+print(f'Total turnaround time: {totalTurnAroundTime}')
+print(f'Average turnaround time: {round(avgTurnAroundTime, 2)}')

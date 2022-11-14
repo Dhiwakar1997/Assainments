@@ -1,29 +1,32 @@
 lcs_result = ''
 
-def maximum(a,b):
+def maximum_LCS(a_tuple,b_tuple):
+    a,a_out = a_tuple
+    b,b_out = b_tuple
     if a>b:
-        return a
+        return a, a_out
     else: 
-        return b
+        return b, b_out
 
-def LCS(i,j):
-    #print(f"i:{i},j:{j}")
+def LCS(i,j,out):
     global lcs_result
     if i== str1_length or j==str2_length:
-        return 0
+        return 0 , out
     elif string1[i]==string2[j]:
-        #lcs_result+= string1[i]
-        return 1 + LCS(i+1,j+1)
+        out += string1[i]
+        temp, out = LCS(i+1,j+1, out)
+        return (1 + temp) , out
     else: 
-        return maximum(LCS(i+1,j), LCS(i,j+1))
+        lcs_result = out
+        return maximum_LCS(LCS(i+1,j,out), LCS(i,j+1,out))
 
 if __name__ == "__main__":
-    string1 = "aabcd" #input("Enter the string 1: ")
-    string2 = "abcd" #input("Enter the string 2: ")
+    string1 = "aggtab" #input("Enter the string 1: ")
+    string2 = "gxtxayb" #input("Enter the string 2: ")
     str1_length = len(string1)
     str2_length = len(string2)
 
+    LCS_count, LCS_string = LCS(0,0,'')
 
-    LCS_count = LCS(0,0)
-    #print(f"The longest subsequence of string '{string1}' and string 2 '{string2}' is '{lcs_result}'")
+    print(f"The longest subsequence of string '{string1}' and string 2 '{string2}' is '{LCS_string}'")
     print(f'The LCS count is {LCS_count}')

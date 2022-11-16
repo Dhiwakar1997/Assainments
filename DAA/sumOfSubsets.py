@@ -1,5 +1,5 @@
 inputArray = [ 2,13,5,7,9,3 ]
-requiredSubset = 20
+requiredSubset = 22
 wi=0
 wk = sum(inputArray)
 
@@ -16,8 +16,8 @@ def sumOfSubset(wi:int, index:int, wk:int):
         result[index]=0
         return sumOfSubset(wi,index+1,wk-inputArray[index])
 
-x = sumOfSubset(wi,0,wk)
-print(x)
+sumOfSubset(wi,0,wk)
 
-print(result)
-    
+print(f"The given array of elements : {inputArray}")
+print(f"Required Subset : {requiredSubset}")
+print(f"The result of the subset : {result}")

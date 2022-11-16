@@ -1,43 +1,60 @@
 #include <stdio.h>
-#include <stdbool.h>
 
-int arr[50], arrSize=-1,front=0,back=0;
+#define SIZE 10
 
-void enqueue(int data){
-    arr[++arrSize]= data;
+int arr[SIZE];
+int front = -1, back = -1;
+
+int isEmpty() {
+  if (front == -1) return 1;
+  return 0;
 }
 
-int dequeue(){
-    int temp = arr[0];
-    for(int i=0; i<=arrSize; i++)
-        arr[i] = arr[i+1];
-    arr[arrSize]='\0';
-    arrSize--;
-    return temp;
+void enQueue(int data) {
+    if (front == -1) 
+        front = 0;
+    back = (back + 1) % SIZE;
+    arr[back] = data;
+    printf("Enqueued item: %d\n",data);
 }
 
-bool isEmpty()
-{
-return arrSize==-1;
+int deQueue() {
+  int data=arr[front];
+    if (front == back) {
+        front = -1;
+        back = -1;
+        } 
+    else 
+        front = (front + 1) % SIZE;
+    printf("Dequeued item: %d\n",data);
+    return (data);
 }
 
-int size(){
-return arrSize;
-}
+void display() {
 
-void display(){
-    for(int i=0;i<=arrSize;i++)
-        printf("%d\n",arr[i]);
+    for (int i = front; i != back; i = (i + 1) % SIZE) 
+      printf("%d\t", arr[i]);
+    printf("\n");
 }
 
 int main() {
-    enqueue(2);
-    enqueue(5);
-    enqueue(1);
-    display();
-    printf("Dequeued item : %d\n",dequeue());
-    display();
-    enqueue(8);
 
-    return 0;
+  enQueue(1);
+  enQueue(2);
+  enQueue(3);
+  enQueue(4);
+  enQueue(5);
+  enQueue(6);
+  display();
+
+  deQueue();
+  display();
+
+  enQueue(7);
+  display();
+
+  enQueue(8);
+  display();
+  
+  return 0;
 }

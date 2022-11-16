@@ -6,12 +6,14 @@ int arr[50], arrSize=-1,front=0,back=-1;
 void enqueue(int data){
     arr[++back]= data;
     ++arrSize;
+    printf("Enqueued item: %d\n",data);
 }
 
 int dequeue(){
     int temp = arr[front];
     arr[front]='\0';
     front++;
+    printf("Dequeued item: %d\n",temp);
     return temp;
 }
 
@@ -26,7 +28,8 @@ return arrSize;
 
 void display(){
     for(int i=front;i<=back;i++)
-        printf("%d\n",arr[i]);
+        printf("%d\t",arr[i]);
+    printf("\n");
 }
 
 int main() {
@@ -34,11 +37,10 @@ int main() {
     enqueue(5);
     enqueue(1);
     enqueue(7);
-    printf("%d, %d\n",front,back);
     display();
-    printf("Dequeued item : %d\n",dequeue());
+    dequeue();
     display();
     enqueue(8);
-
+    display();
     return 0;
 }

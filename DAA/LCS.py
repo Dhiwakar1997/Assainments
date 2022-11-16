@@ -21,8 +21,8 @@ def LCS(i,j,out):
         return maximum_LCS(LCS(i+1,j,out), LCS(i,j+1,out))
 
 if __name__ == "__main__":
-    string1 = "aggtab" #input("Enter the string 1: ")
-    string2 = "gxtxayb" #input("Enter the string 2: ")
+    string1 = input("Enter the string 1: ") #aggtab
+    string2 = input("Enter the string 2: ") #gxtxayb
     str1_length = len(string1)
     str2_length = len(string2)
 

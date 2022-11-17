@@ -29,7 +29,7 @@ class Producer(threading.Thread):
       counter += 1
       buffer[in_index] = counter
       in_index = (in_index + 1)%size
-      print("Producer produced : ", counter)
+      print("\nProducer produced : ", counter)
        
       mutex.release()
       full.release()

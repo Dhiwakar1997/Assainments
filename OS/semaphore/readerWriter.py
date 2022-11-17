@@ -6,8 +6,7 @@ def getRandomNumber(endVal=4):
     return random.uniform(1, endVal)
 
 # Shared Memory variables
-quotes = [  
-            'This is the 1st quote',
+quotes = [  'This is the 1st quote',
             'This is the 2nd quote',
             'This is the 3ed quote',
             'This is the 4th quote',

@@ -1,46 +1,55 @@
 import threading
 import random
-import time
  
 # Shared Memory variables
 numOfPhilosophers = 5
 chopStickCount = numOfPhilosophers
 
-totalServingAvailable = 15
+totalServingAvailable = 10
 servingCounter = 0
 
 # Declaring Semaphores
-chopStrick =[ threading.Semaphore() for i in range(chopStickCount)]
+chopStick =[ threading.Semaphore() for i in range(chopStickCount)]
+
 
 def getRandomNumber(endVal=4):
-    return random.randint(1, endVal)
+    return random.uniform(1, endVal)
  
-# Philosopher Thread Class
-class Philosopher(threading.Thread):
-    def __init__(self,*args, **kwargs):
-        self.count = kwargs.pop('count')
-        super().__init__()
+class MonitorDP(threading.Thread):
+    def __init__(self):
+        self.chopStick =[ threading.Semaphore() for i in range(chopStickCount)]
+        self.states = [ "THINKING" for i in range(numOfPhilosophers)] 
 
-    def run(self): 
-        global  chopStrick, totalServingAvailable, servingCounter
+    def pickUp(self, philosopherId):
+        self.states[philosopherId] = "HUNGRY"
+        print(f"Philosopher {philosopherId} is hungry")
+        self.test(philosopherId)
+        if self.states[philosopherId]=="EATING":
+            print(f"Philosopher {philosopherId} pickup the chopstick")
+            self.chopStick[philosopherId].acquire() #wait 
 
-        while servingCounter<totalServingAvailable:
-            servingCounter+=1
-            print(f"Serving Count : {servingCounter}")
-            chopStrick[self.count].acquire()
-            chopStrick[(self.count+1)%numOfPhilosophers].acquire()
-            #Critical part
-            print(f"Philosopher {self.count+1} is eating")
-            time.sleep(getRandomNumber(3))
-            chopStrick[self.count].release()
-            chopStrick[(self.count+1)%numOfPhilosophers].release()
-            print(f"Philosopher {self.count+1} is thinking")
-            time.sleep(getRandomNumber())
-       
+
+    def putDown(self, philosopherId):
+        self.states[philosopherId] = "THINKING"
+        print(f"Philosopher {philosopherId} putDown the chopstick")
+        self.test((philosopherId+(numOfPhilosophers-1))%numOfPhilosophers)
+        self.test((philosopherId+1)%numOfPhilosophers)
+
+    def test(self, philosopherId):
+        if self.states[(philosopherId+(numOfPhilosophers-1))%numOfPhilosophers]!="EATING" \
+        and self.states[philosopherId] == "HUNGRY" \
+        and self.states[(philosopherId+1)%numOfPhilosophers] != "EATING":
+            self.states[philosopherId] = "EATING"
+            print(f"Philosopher {philosopherId} eating")
+            self.chopStick[philosopherId].release() #signal 
+
+
+
 
 if __name__ == "__main__":
-    philosophers = [Philosopher(count=i) for i in range(numOfPhilosophers)]
-    for philosopher in philosophers:
-        philosopher.start()
-    for philosopher in philosophers:
-        philosopher.join()
+    diningPhilosophers = MonitorDP()
+    diningPhilosophers.pickUp(1)
+    diningPhilosophers.pickUp(2)
+    diningPhilosophers.putDown(1)
+    diningPhilosophers.putDown(2)
+

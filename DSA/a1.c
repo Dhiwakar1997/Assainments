@@ -42,19 +42,22 @@ int main() {
 
     printf("Please enter the number of elements: ");
     scanf("%d",&size);
-
+    printf("Enter %d integer value for array A: \n",size);
     for(int i=0;i<size;i++)
     {
-        printf("Enter integer value for array A: ");
         scanf("%d",&A[i]);
     }
-
-    printf("Enter character value for array B: ");
+    printf("Enter value for string B: \n");
     scanf("%s",B);
+    printf("The entered string is %s\n",B);
 
     deletion(A,&size,0);
+    deletion(A,&size,size/2);
+    deletion(A,&size,size);
 
     insertion(A,&size,0);
+    insertion(A,&size,size/2);
+    insertion(A,&size,size);
 
     splitArr(A,&size);
 

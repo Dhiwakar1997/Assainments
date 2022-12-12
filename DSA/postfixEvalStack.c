@@ -49,30 +49,29 @@ float eval(char operator)
     float a = pop();
     if (operator=='+')
     {
-    push(a + b);
-    printf("\n%.2f + %.2f = %.2f\n",a,b,a+b);
+        push(a + b);
+        printf("\n%.2f + %.2f = %.2f\n",a,b,a+b);
     }
-
     else if (operator=='-')
     {
-    push( a - b);
-    printf("\n%.2f - %.2f = %.2f\n",a,b,a-b);
+        push( a - b);
+        printf("\n%.2f - %.2f = %.2f\n",a,b,a-b);
     }
     else if (operator=='/')
     {
-    push( a / b);
-    printf("\n%.2f/%.2f = %.2f\n",a,b,a/b);
+        push( a / b);
+        printf("\n%.2f/%.2f = %.2f\n",a,b,a/b);
     }
 
     else if (operator=='*')
     {
-    push( a * b);
-    printf("\n%.2f * %.2f = %.2f\n",a,b,a*b);
+        push( a * b);
+        printf("\n%.2f * %.2f = %.2f\n",a,b,a*b);
     }
     else if (operator=='^')
     {
-    push(pow(a,b));
-    printf("\n%.2f^%.2f = %.2f\n",a,b,pow(a,b));
+        push(pow(a,b));
+        printf("\n%.2f^%.2f = %.2f\n",a,b,pow(a,b));
     }
 
     return 0;

@@ -1,33 +1,42 @@
-def is_safe(board, i, j):
-    n = len(board)
-    j_left = j
-    j_right = j
-    while i >= 0:
-        if (j_left >= 0 and board[i][j_left] == 1) or board[i][j] == 1 or (j_right < n and board[i][j_right] == 1):
-            return False
-        i -= 1
-        j_left -= 1
-        j_right += 1
-    return True
+#Number of queens
+N = 4
 
+#chessboard
+#NxN matrix with all elements 0
+board = [[0]*N for _ in range(N)]
 
-def rec(board, i):
-    n = len(board)
-    if i == n:
-        return 1
-    else:
-        nb_solutions = 0
-        for j in range(n):
-            if is_safe(board, i, j):
+def is_attack(i, j):
+    #checking if there is a queen in row or column
+    for k in range(0,N):
+        if board[i][k]==1 or board[k][j]==1:
+            return True
+    #checking diagonals
+    for k in range(0,N):
+        for l in range(0,N):
+            if (k+l==i+j) or (k-l==i-j):
+                if board[k][l]==1:
+                    return True
+    return False
+
+def N_queen(n):
+    #if n is 0, solution found
+    if n==0:
+        return True
+    for i in range(0,N):
+        for j in range(0,N):
+            '''checking if we can place a queen here or not
+            queen will not be placed if the place is being attacked
+            or already occupied'''
+            if (not(is_attack(i,j))) and (board[i][j]!=1):
                 board[i][j] = 1
-                nb_solutions += rec(board, i+1)
+                #recursion
+                #wether we can put the next queen with this arrangment or not
+                if N_queen(n-1)==True:
+                    return True
                 board[i][j] = 0
-        return nb_solutions
-    
-    
-def n_queens(n):
-    board = [[0]*n for _ in range(n)]
-    return rec(board, 0)
 
-
-print(n_queens(4)) # Output: 92
+    return False
+print(" Solution of 4 queens problem: ")
+N_queen(N)
+for i in board:
+    print (i)

@@ -1,74 +1,65 @@
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-struct DoublyLinkedList{
-    int data;
-    struct DoublyLinkedList *prev;
-    struct DoublyLinkedList *next;
+
+struct Node {
+  int data;
+  struct Node* next;
+  struct Node* prev;
 };
 
-struct DoublyLinkedList *head=NULL;
-struct DoublyLinkedList *tail=NULL;
 
-bool isEmpty(){
-    return head==NULL && tail==NULL;
+void insertFront(struct Node** head, int data) {
+
+  struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+  newNode->data = data;
+  newNode->next = (*head);
+  newNode->prev = NULL;
+
+  if ((*head) != NULL)
+    (*head)->prev = newNode;
+  (*head) = newNode;
+
 }
 
-void insertion(int data){
-    struct DoublyLinkedList *temp = (struct DoublyLinkedList*)malloc(sizeof(struct DoublyLinkedList));
-    head->prev = temp;
-    temp->data = data;
+void deleteNode(struct Node** head, struct Node* del_node) {
+  if (*head == NULL || del_node == NULL)
+    return;
 
-       if(isEmpty()) {
-      //make it the last link
-      tail = temp;
-   } else {
-      //update first prev link
-      head->prev = temp;
-   }
-    temp->next = head;
-    head = temp;
+  if (*head == del_node)
+    *head = del_node->next;
+  if (del_node->next != NULL)
+    del_node->next->prev = del_node->prev;
+
+  if (del_node->prev != NULL)
+    del_node->prev->next = del_node->next;
+  free(del_node);
 }
 
-void deletion(int data){
-    struct DoublyLinkedList *current = head;
-        printf("yet to enter!");
-        while(1){
-            printf("%d\t",current->data);
-            if(current->data == data){
-                struct DoublyLinkedList *prev = current->prev;
-                printf("%p\n",prev);
-               // prev->next = current->next;
-                //current = NULL;
-                break;
-            }
-            if (current->next==NULL)
-                break;
-            current = current->next;
-        }
+void displayList(struct Node* node) {
+  struct Node* last;
+
+  while (node != NULL) {
+    printf("%d->", node->data);
+    last = node;
+    node = node->next;
+  }
+  if (node == NULL)
+    printf("NULL\n");
 }
 
-void display(){
-    struct DoublyLinkedList *temp = head;
-    while(1){
-        printf("%d\t", temp->data);
-        if (temp->next==NULL)
-        break;
-        temp = temp->next;
-    }
-    printf("\n");
-}
+int main() {
 
-int main()
-{
-insertion(23);
-insertion(3);
-insertion(2);
-insertion(8);
-display();
-printf("%d\n",head->data);
-deletion(3);
-display();
+  struct Node* head = NULL;
+
+
+  insertFront(&head, 1);
+  insertFront(&head, 6);
+  insertFront(&head, 54);
+  insertFront(&head, 9);
+  displayList(head);
+
+  deleteNode(&head, head->next);
+
+  displayList(head);
 }

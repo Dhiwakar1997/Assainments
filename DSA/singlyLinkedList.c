@@ -42,11 +42,13 @@ void display(){
 
 int main()
 {
+printf("Inserting:\n");
 insertion(23);
 insertion(3);
 insertion(2);
 insertion(8);
 display();
+printf("deleting: 3\n");
 deletion(3);
 display();
 }

@@ -12,7 +12,9 @@ int isEmpty() {
 
 void enQueue(int data) {
     if (front == -1) 
+    {
         front = 0;
+    }
     back = (back + 1) % SIZE;
     arr[back] = data;
     printf("Enqueued item: %d\n",data);
@@ -31,8 +33,8 @@ int deQueue() {
 }
 
 void display() {
-
-    for (int i = front; i != back; i = (i + 1) % SIZE) 
+    printf("f-%d, b-%d\n",front,back);
+    for (int i = front; i != back+1; i = (i + 1) % SIZE) 
       printf("%d\t", arr[i]);
     printf("\n");
 }
@@ -45,8 +47,11 @@ int main() {
   enQueue(4);
   enQueue(5);
   enQueue(6);
-  display();
 
+  display();
+  deQueue();
+  
+  display();
   deQueue();
   display();
 

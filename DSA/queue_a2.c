@@ -1,15 +1,22 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-int arr[50], arrSize=-1,front=0,back=-1;
+int arr[50], arrSize=-1,front=-1,back=-1;
 
 void enqueue(int data){
+    if(front==-1)
+    front = 0;
+
     arr[++back]= data;
     ++arrSize;
     printf("Enqueued item: %d\n",data);
 }
 
 int dequeue(){
+    if(front==back){
+        front = -1;
+        back = -1;
+    }
     int temp = arr[front];
     arr[front]='\0';
     front++;

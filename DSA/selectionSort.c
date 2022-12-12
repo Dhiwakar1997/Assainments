@@ -17,23 +17,20 @@ void display(int arr[],int arrSize){
 
 int main()
 {
-	int arr[] = { 12, 11, 13, 5, 6, 7 };
+	int arr[] = { 56, 8, 13, 32, 0, -7 };
 	int arr_size = sizeof(arr) / sizeof(arr[0]);
     printf("\nThe unsorted input is: \n\n");
-    display(arr, arr_size);
-    for(int i=1; i<arr_size; i++){
-        int temp_swap=i;
-        for(int j=i-1;j>=0;j--){
-            if(arr[j]>arr[temp_swap]){
-                swap(arr,temp_swap,j);
-                display(arr, arr_size);
-                temp_swap--;
-            }
-            else{
-                break;
-            }
+    display(arr,arr_size);
+    printf("\n");
+    for(int i=0;i<arr_size;i++){
+        int smallest_index=i;
+        for(int j=i+1;j<arr_size;j++){
+            if(arr[j]<arr[smallest_index])
+            smallest_index = j;
         }
+    swap(arr,i,smallest_index);
+    display(arr,arr_size);
     }
-printf("The sorted output is: \n\n");
-display(arr, arr_size);
+printf("\nThe sorted output is: \n\n");
+display(arr,arr_size);
 }

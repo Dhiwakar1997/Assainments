@@ -10,7 +10,6 @@ memSize = 3
 for index, pageNo in enumerate(pageSeq):
     rank = []
 
-    
     if index<memSize:
         memoryStrack.append(pageNo)
     
@@ -28,6 +27,5 @@ for index, pageNo in enumerate(pageSeq):
             if memLoc == lruVal:
                 memoryStrack[index_m] = pageNo
 
-    
     print(f"Mem Seq: {memoryStrack}")
             

@@ -24,6 +24,7 @@ closingCount = 3
 content =''
 
 class Writer(threading.Thread):
+    
   def run(self):
     global mutex,quotes,content, quoteCount
     while quoteCount < len(quotes)-1:
@@ -51,7 +52,7 @@ class Reader(threading.Thread):
                     rw_mutex.acquire()
                 mutex.release()
 
-                print(f'The quote read by reader{self.count+1} :\t"{content}"\n')
+                print(f'The quote read by reader {self.count+1} :\t"{content}"\n')
 
                 mutex.acquire()
                 readerCount-=1

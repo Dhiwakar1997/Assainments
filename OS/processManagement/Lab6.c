@@ -10,7 +10,7 @@ int main(){
     pid = fork();
     if(pid!=0)
     {
-        printf("I'am the parent with PID %d and PPID %d.\n",getppid(),getppid());
+        printf("I'am the parent with PID %d and PPID %d.\n",getpid(),getppid());
         printf("My child's PID is %d\n",pid);
     }
     else{

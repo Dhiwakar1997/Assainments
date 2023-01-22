@@ -3,7 +3,7 @@ import time
  
 # Shared Memory variables
 size = 10
-buffer = [-1 for i in range(size)]
+buffer = [0 for i in range(size)]
 in_index = 0
 out_index = 0
  
@@ -27,8 +27,8 @@ class Producer(threading.Thread):
       mutex.acquire()
        
       counter += 1
-      buffer[in_index] = counter
-      in_index = (in_index + 1)%size
+      buffer[in_index] = counter**2
+      in_index = in_index + 1
       print("\nProducer produced : ", counter)
        
       mutex.release()
@@ -51,7 +51,7 @@ class Consumer(threading.Thread):
       mutex.acquire()
        
       item = buffer[out_index]
-      out_index = (out_index + 1)%size
+      out_index = out_index + 1
       print("Consumer consumed item : ", item)
        
       mutex.release()

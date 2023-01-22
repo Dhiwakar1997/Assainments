@@ -11,7 +11,7 @@ def firstFit(availableMemorySpace,requestSpace):
             if(req<available):
                 memorySeq.append(f"P{index}")
                 availableMemorySpace[index] -=req
-                done =1
+                done = 1
                 break
         if done == 0:
             print(f"Memory has no space to fit {req}")

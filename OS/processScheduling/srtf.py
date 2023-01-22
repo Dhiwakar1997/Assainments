@@ -11,7 +11,6 @@ totalWaitingTime=0
 
 
 while (True):
-
     completedProcess = ""
     for i,at in enumerate(arrivalTime):
         if at<=runningTime and processList[i] not in liveBurstTime.keys () \

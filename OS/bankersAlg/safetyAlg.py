@@ -21,7 +21,6 @@ for i in range(len(maxDemand)):
 
 def displaySeq():
     if safeState:
-
         print('\nSafe Sequence: \n')
         for i, val in enumerate(safeSeq):
             print(f" {val} ",end="")
@@ -42,6 +41,7 @@ def safetyAlg(available, need):
                 for need_index ,need_i in enumerate(need[process_index]):
                     if need_i > work[need_index]:
                         doable_flag = False  
+                        break
                 if doable_flag:
                     #print(f"P{process_index}")
                     safeSeq.append(f"P{process_index}")
@@ -51,27 +51,22 @@ def safetyAlg(available, need):
 
 
     def step_3(allocation, process_index):
-        #print(allocation)
+
         finish[process_index] = True 
         for index, allocation_val in enumerate(allocation):
             work[index] = work[index] + allocation_val
-        #print(work)
+
         step_2()
 
 
     def step_4():
+        
         global safeState
-        complete = True
-        #print(finish)
+        safeState = True
         for process_index, fin in enumerate(finish):
              if not fin:
-                complete = False
-        if complete:
-            #print("\nSystem is safe\n")
-            safeState = True
-        else:
-            #print("\nSystem is unsafe")
-            safeState = False
+                safeState = False
+                return
 
     #step 1
     work = available
@@ -91,12 +86,13 @@ def resourceReq(available, process_index, req):
 
     def revert(process_index, req):
         for index, val in enumerate(allocation[process_index]):
-            allocation[process_index][index] = allocation[process_index][index]  + req[index]
-            need[process_index][index] = need[process_index][index]  - req[index]
+            allocation[process_index][index] = allocation[process_index][index]  - req[index]
+            need[process_index][index] = need[process_index][index]  + req[index]
 
     for index, val in enumerate(allocation[process_index]):
-        allocation[process_index][index] = allocation[process_index][index] - req[index]
-        need[process_index][index] = need[process_index][index]  + req[index]
+        available[index] = available[index] - req[index]
+        allocation[process_index][index] = allocation[process_index][index] + req[index]
+        need[process_index][index] = need[process_index][index]  - req[index]
     
     temp = safeSeq.copy()
     safeSeq = []
@@ -131,6 +127,3 @@ resourceReq(available.copy(), 1, (1,0,2))
 displaySeq()
 resourceReq(available.copy(), 2, (200,300,230))
 displaySeq()
-
-
-

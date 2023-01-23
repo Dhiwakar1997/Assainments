@@ -1,5 +1,14 @@
 import numpy as np
 
+def brute_force(A, B):
+    n, m, p = A.shape[0], A.shape[1], B.shape[1]
+    C = np.array([[0]*p for i in range(n)])
+    for i in range(n):
+        for j in range(p):
+            for k in range(m):
+                C[i][j] += A[i][k]*B[k][j]
+    return C
+
 def split(matrix):
     n = len(matrix)
     return matrix[:n//2, :n//2], matrix[:n//2, n//2:], matrix[n//2:, :n//2], matrix[n//2:, n//2:]
@@ -26,6 +35,4 @@ def strassen(A, B):
 A = np.random.rand(4, 4)
 B = np.random.rand(4, 4)
 s_out = strassen(A, B)
-b_out = brute_force(A, B)
 print(s_out)
-print(b_out)

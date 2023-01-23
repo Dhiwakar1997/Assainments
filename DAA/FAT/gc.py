@@ -17,10 +17,11 @@ class Graph:
                         self.edgeDict[edge].add(right)
                     elif edge==right:
                         self.edgeDict[edge].add(left)
+            #print(self.edgeDict)
 
             for edge, pairs in self.edgeDict.items():
                 if edge not in self.edgeColor:
-                    unfitColors = [self.edgeColor[edge] for edge in pairs if edge in self.edgeColor]
+                    unfitColors = [self.edgeColor[pair_edge] for pair_edge in pairs if pair_edge in self.edgeColor]
                     while colors[self.colorIndex] in unfitColors:
                         if self.colorIndex < len(self.colors)-1:
                             self.colorIndex+=1

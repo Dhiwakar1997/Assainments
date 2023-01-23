@@ -19,18 +19,12 @@ def is_attack(i, j):
     return False
 
 def N_queen(n):
-    #if n is 0, solution found
     if n==0:
         return True
     for i in range(0,N):
         for j in range(0,N):
-            '''checking if we can place a queen here or not
-            queen will not be placed if the place is being attacked
-            or already occupied'''
             if (not(is_attack(i,j))) and (board[i][j]!=1):
                 board[i][j] = 1
-                #recursion
-                #wether we can put the next queen with this arrangment or not
                 if N_queen(n-1)==True:
                     return True
                 board[i][j] = 0

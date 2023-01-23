@@ -10,50 +10,53 @@ d = 256
 
 
 def search(pat, txt, q):
-	M = len(pat)
-	N = len(txt)
+	p_len = len(pat)
+	t_len = len(txt)
 	i = 0
-	j = 0
-	p = 0 # hash value for pattern
-	t = 0 # hash value for txt
+	match_index = 0
+	p_hash = 0 # hash value for pattern
+	t_hash = 0 # hash value for txt
 	h = 1
 
-	# The value of h would be "pow(d, M-1)%q"
-	for i in range(M-1):
+	# The value of h would be "pow(d, p_len-1)%q"
+	for i in range(p_len-1):
 		h = (h*d) % q
 
 	# Calculate the hash value of pattern and first window
 	# of text
-	for i in range(M):
-		p = (d*p + ord(pat[i])) % q
-		t = (d*t + ord(txt[i])) % q
+	for i in range(p_len):
+		p_hash = (d*p_hash + ord(pat[i])) % q
+		t_hash = (d*t_hash + ord(txt[i])) % q
 
 	# Slide the pattern over text one by one
-	for i in range(N-M+1):
+	for i in range(t_len-p_len+1):
 		# Check the hash values of current window of text and
 		# pattern if the hash values match then only check
 		# for characters one by one
-		if p == t:
+		if p_hash == t_hash:
 			# Check for characters one by one
-			for j in range(M):
+			for j in range(p_len):
 				if txt[i+j] != pat[j]:
 					break
 				else:
-					j += 1
+					match_index += 1
 
-			# if p == t and pat[0...M-1] = txt[i, i+1, ...i+M-1]
-			if j == M:
-				print(f"Pattern '{txt[i:]}' found at index " + str(i))
+			# if p_hash == t_hash and pat[0...p_len-1] = txt[i, i+1, ...i+p_len-1]
+			if match_index == p_len:
+				print(f"Pattern '{txt[i:i+p_len]}' found at index " + str(i))
+				return
 
 		# Calculate hash value for next window of text: Remove
 		# leading digit, add trailing digit
-		if i < N-M:
-			t = (d*(t-ord(txt[i])*h) + ord(txt[i+M])) % q
+		if i < t_len-p_len:
+			t_hash = (d*(t_hash-ord(txt[i])*h) + ord(txt[i+p_len])) % q
 
-			# We might get negative values of t, converting it to
+			# We might get negative values of t_hash, converting it to
 			# positive
-			if t < 0:
-				t = t+q
+			if t_hash < 0:
+				t_hash = t_hash+q
+		else:
+			print("Match not found")
 
 
 # Driver Code

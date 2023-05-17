@@ -14,7 +14,6 @@ def printJobScheduling(arr, t):
 	for i in range(len(arr)):
 		for j in range(min(t - 1, arr[i][1] - 1), -1, -1):
 			if result[j] is False:
-				print(arr[i][0],j)
 				result[j] = True
 				job[j] = arr[i][0]
 				break

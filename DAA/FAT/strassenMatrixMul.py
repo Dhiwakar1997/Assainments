@@ -30,6 +30,8 @@ def strassen(A, B):
     C21 = p6 + p2
     C22 = p5 + p1 - p6 - p7
     C = np.vstack((np.hstack((C11, C12)), np.hstack((C21, C22))))
+    print(C11, C12, C21, C22)
+    print(C)
     return C
 
 A = np.random.rand(4, 4)

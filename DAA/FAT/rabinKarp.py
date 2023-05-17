@@ -33,6 +33,7 @@ def search(pat, txt, q):
 		# Check the hash values of current window of text and
 		# pattern if the hash values match then only check
 		# for characters one by one
+		print(p_hash,t_hash)
 		if p_hash == t_hash:
 			# Check for characters one by one
 			for j in range(p_len):

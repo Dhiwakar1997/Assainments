@@ -2,17 +2,17 @@
 #include <stdbool.h>
 int arr[50], arrSize=0, top=-1;
 
+void push(int data){
+arr[++top]=data;
+arrSize++;
+printf("Pushed item: %d\n",data);
+}
+
 int pop(){
 int temp = arr[top--];
 arrSize--;
 printf("Popped item: %d\n",temp);
 return temp;
-}
-
-void push(int data){
-arr[++top]=data;
-arrSize++;
-printf("Pushed item: %d\n",data);
 }
 
 bool isEmpty()

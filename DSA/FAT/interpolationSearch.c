@@ -3,8 +3,8 @@
 #include <math.h>
 
 float interpolationFormula(int arr[], int x,int l, int u){
-    float mid_part_num = x - arr[l], mid_part_denom = arr[u]-arr[l] ,mid_part;
-    mid_part = round(mid_part_num/mid_part_denom);
+    float mid_part_nom = x - arr[l], mid_part_denom = arr[u]-arr[l] ,mid_part;
+    mid_part = round(mid_part_nom/mid_part_denom);
     return l + mid_part * (u-l);
 }
 

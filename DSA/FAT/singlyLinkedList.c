@@ -49,6 +49,6 @@ insertion(2);
 insertion(8);
 display();
 printf("deleting: 3\n");
-deletion(3);
+deletion(23);
 display();
 }
